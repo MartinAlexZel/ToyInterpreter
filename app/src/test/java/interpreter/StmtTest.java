@@ -31,6 +31,7 @@ public class StmtTest {
         crt.execute(state);
 
         assertFalse(state.getExeStack().isEmpty());
+
         IStmt branch = state.getExeStack().pop();
         branch.execute(state);
 

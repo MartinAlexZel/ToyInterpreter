@@ -1,0 +1,34 @@
+package interpreter.model.adt;
+import java.util.Stack;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Collections;
+public class MyStack<T> implements IStack<T>{
+    private Stack<T> stack;
+
+    public MyStack(){
+        this.stack = new Stack<>();
+    }
+    @Override
+    public T pop(){
+        return stack.pop();
+    }
+    @Override
+    public void push(T v){
+        stack.push(v);
+    }
+    @Override
+    public boolean isEmpty(){
+        return stack.isEmpty();
+    }
+    @Override
+    public List<T> getReversed(){
+        List<T> list = new ArrayList<>(stack);
+        Collections.reverse(list);
+        return list;
+    }
+    @Override
+    public String toString(){
+        return stack.toString();
+    }
+}

@@ -7,7 +7,9 @@ import interpreter.model.exp.ArithExp;
 import interpreter.model.exp.ValueExp;
 import interpreter.model.exp.VarExp;
 import interpreter.model.stmt.*;
+import interpreter.model.type.BoolType;
 import interpreter.model.type.IntType;
+import interpreter.model.value.BoolValue;
 import interpreter.model.value.IntValue;
 import interpreter.repository.IRepo;
 import interpreter.repository.MyRepo;
@@ -53,6 +55,19 @@ public class Main {
         Controller ctr2 = new Controller(repo2);
         repo2.add(prg2);
         menu.addCommand(new RunExampleCommand("2", ex2.toString(), ctr2));
+        //Program 3
+        IStmt ex3 = new CompStmt(new VarDeclStmt("a", new BoolType()),
+                new CompStmt(new VarDeclStmt("v", new IntType()),
+                        new CompStmt(new AssignStmt("a", new ValueExp(new BoolValue(true))),
+                                new CompStmt(new IfStmt(new VarExp("a"),
+                                        new AssignStmt("v", new ValueExp(new IntValue(2))),
+                                        new AssignStmt("v", new ValueExp(new IntValue(3)))),
+                                        new PrintStmt(new VarExp("v"))))));
+        PrgState prg3 = new PrgState(new MyStack<>(),new MyDictionary<>(),new MyList<>(),ex3);
+        IRepo repo3 = new MyRepo("log3.txt");
+        Controller ctr3 = new Controller(repo3);
+        repo3.add(prg3);
+        menu.addCommand(new RunExampleCommand("3",ex3.toString(),ctr3));
 
 
         menu.show();

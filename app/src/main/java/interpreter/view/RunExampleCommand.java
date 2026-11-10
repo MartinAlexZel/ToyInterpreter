@@ -4,22 +4,19 @@ import interpreter.controller.Controller;
 import interpreter.exceptions.MyException;
 
 public class RunExampleCommand extends Command {
-    private Controller ctr;
+    private final Controller controller;
 
-    public RunExampleCommand(String key, String description, Controller ctr) {
+    public RunExampleCommand(String key, String description, Controller controller) {
         super(key, description);
-        this.ctr = ctr;
+        this.controller = controller;
     }
 
     @Override
     public void execute() {
         try {
-            ctr.allStep();
-            IO.println("Execution finished successfully. Check the log file.");
+            controller.allStep();
         } catch (MyException e) {
-            IO.println("Runtime Error: " + e.getMessage());
-        } catch (Exception e) {
-            IO.println("Error: " + e.getMessage());
+            System.out.println("Error: " + e.getMessage());
         }
     }
 }

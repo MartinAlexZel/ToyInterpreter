@@ -1,8 +1,8 @@
 package interpreter.view;
 
 public abstract class Command {
-    private String key;
-    private String description;
+    private final String key;
+    private final String description;
 
     public Command(String key, String description) {
         this.key = key;
@@ -11,13 +11,6 @@ public abstract class Command {
 
     public abstract void execute();
 
-    public String getKey() {
-
-        return key;
-    }
-
-    public String getDescription() {
-
-        return description;
-    }
+    public String getKey() { return key; }
+    public String getDescription() { return description; }
 }

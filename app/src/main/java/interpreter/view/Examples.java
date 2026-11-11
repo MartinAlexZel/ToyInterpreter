@@ -24,13 +24,13 @@ public class Examples {
                     new VarDeclStmt("b", new IntType()),
                     new CompStmt(
                             new AssignStmt("a", new ArithExp(
-                                    '+',
+                                    ArithOp.ADD,
                                     new ValueExp(new IntValue(2)),
-                                    new ArithExp('*', new ValueExp(new IntValue(3)), new ValueExp(new IntValue(5)))
+                                    new ArithExp(ArithOp.MUL, new ValueExp(new IntValue(3)), new ValueExp(new IntValue(5)))
                             )),
                             new CompStmt(
                                     new AssignStmt("b", new ArithExp(
-                                            '+',
+                                            ArithOp.ADD,
                                             new VarExp("a"),
                                             new ValueExp(new IntValue(1))
                                     )),

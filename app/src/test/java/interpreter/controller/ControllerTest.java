@@ -3,6 +3,7 @@ package interpreter.controller;
 import interpreter.exceptions.MyException;
 import interpreter.exceptions.StatementException;
 import interpreter.model.PrgState;
+import interpreter.model.adt.FileTable;
 import interpreter.model.adt.MyDictionary;
 import interpreter.model.adt.MyList;
 import interpreter.model.adt.MyStack;
@@ -16,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ControllerTest {
     private static PrgState run(IStmt program) throws MyException {
-        PrgState state = new PrgState(new MyStack<>(), new MyDictionary<>(), new MyList<>(), program);
+        PrgState state = new PrgState(new MyStack<>(), new MyDictionary<>(), new MyList<>(),new FileTable(), program);
         new Controller(new Repository(state), false).allStep();
         return state;
     }
@@ -44,7 +45,7 @@ class ControllerTest {
 
     @Test
     void oneStepOnEmptyStackThrows() {
-        PrgState state = new PrgState(new MyStack<>(), new MyDictionary<>(), new MyList<>(), Examples.EX1);
+        PrgState state = new PrgState(new MyStack<>(), new MyDictionary<>(), new MyList<>(),new FileTable(), Examples.EX1);
         try {
             state.getExeStack().pop();
         } catch (Exception ignored) {}

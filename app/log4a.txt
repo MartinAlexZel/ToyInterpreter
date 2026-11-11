@@ -1,0 +1,48 @@
+---------------------------------------
+ExeStack:
+[(string varf; (varf = empty.in; (openRFile(varf); (int varc; (readFile(varf, varc); (print(varc); (readFile(varf, varc); (print(varc); closeRFile(varf)))))))))]
+SymTable:
+{}
+Out:
+[]
+
+---------------------------------------
+ExeStack:
+[string varf, (varf = empty.in; (openRFile(varf); (int varc; (readFile(varf, varc); (print(varc); (readFile(varf, varc); (print(varc); closeRFile(varf))))))))]
+SymTable:
+{}
+Out:
+[]
+
+---------------------------------------
+ExeStack:
+[(varf = empty.in; (openRFile(varf); (int varc; (readFile(varf, varc); (print(varc); (readFile(varf, varc); (print(varc); closeRFile(varf))))))))]
+SymTable:
+{varf=}
+Out:
+[]
+
+---------------------------------------
+ExeStack:
+[varf = empty.in, (openRFile(varf); (int varc; (readFile(varf, varc); (print(varc); (readFile(varf, varc); (print(varc); closeRFile(varf)))))))]
+SymTable:
+{varf=}
+Out:
+[]
+
+---------------------------------------
+ExeStack:
+[(openRFile(varf); (int varc; (readFile(varf, varc); (print(varc); (readFile(varf, varc); (print(varc); closeRFile(varf)))))))]
+SymTable:
+{varf=empty.in}
+Out:
+[]
+
+---------------------------------------
+ExeStack:
+[openRFile(varf), (int varc; (readFile(varf, varc); (print(varc); (readFile(varf, varc); (print(varc); closeRFile(varf))))))]
+SymTable:
+{varf=empty.in}
+Out:
+[]
+

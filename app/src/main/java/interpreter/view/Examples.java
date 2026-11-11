@@ -88,7 +88,8 @@ public class Examples {
         );
     }
     // EX4: Reads two integers from "test.in" and prints them (expected: 15, 50 or 0, 0 if empty)
-    public static final IStmt EX4 = fileExample("test.in");
+    public static final IStmt EX4B = fileExample("test.in");
+    public static final IStmt EX4A = fileExample("empty.in");
     // EX5: int a; int b; a = 5; b = 7; if (a < b) then print(a) else print(b) (expected: 5)
     public static final IStmt EX5 = new CompStmt(
             new VarDeclStmt("a", new IntType()),

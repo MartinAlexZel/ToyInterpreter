@@ -1,0 +1,88 @@
+---------------------------------------
+ExeStack:
+[(int a; (int b; (a = 5; (b = 7; (if (a < b) then print(a) else print(b))))))]
+SymTable:
+{}
+Out:
+[]
+
+---------------------------------------
+ExeStack:
+[int a, (int b; (a = 5; (b = 7; (if (a < b) then print(a) else print(b)))))]
+SymTable:
+{}
+Out:
+[]
+
+---------------------------------------
+ExeStack:
+[(int b; (a = 5; (b = 7; (if (a < b) then print(a) else print(b)))))]
+SymTable:
+{a=0}
+Out:
+[]
+
+---------------------------------------
+ExeStack:
+[int b, (a = 5; (b = 7; (if (a < b) then print(a) else print(b))))]
+SymTable:
+{a=0}
+Out:
+[]
+
+---------------------------------------
+ExeStack:
+[(a = 5; (b = 7; (if (a < b) then print(a) else print(b))))]
+SymTable:
+{a=0, b=0}
+Out:
+[]
+
+---------------------------------------
+ExeStack:
+[a = 5, (b = 7; (if (a < b) then print(a) else print(b)))]
+SymTable:
+{a=0, b=0}
+Out:
+[]
+
+---------------------------------------
+ExeStack:
+[(b = 7; (if (a < b) then print(a) else print(b)))]
+SymTable:
+{a=5, b=0}
+Out:
+[]
+
+---------------------------------------
+ExeStack:
+[b = 7, (if (a < b) then print(a) else print(b))]
+SymTable:
+{a=5, b=0}
+Out:
+[]
+
+---------------------------------------
+ExeStack:
+[(if (a < b) then print(a) else print(b))]
+SymTable:
+{a=5, b=7}
+Out:
+[]
+
+---------------------------------------
+ExeStack:
+[print(a)]
+SymTable:
+{a=5, b=7}
+Out:
+[]
+
+---------------------------------------
+ExeStack:
+[]
+SymTable:
+{a=5, b=7}
+Out:
+[5]
+

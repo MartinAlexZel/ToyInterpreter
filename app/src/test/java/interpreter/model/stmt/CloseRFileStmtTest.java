@@ -11,10 +11,13 @@ import interpreter.model.value.IntValue;
 import interpreter.model.value.StringValue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir; // <--- Import for TempDir
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.StringReader;
+import java.nio.file.Path;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -67,10 +70,13 @@ class CloseRFileStmtTest {
     }
 
     @Test
-    void testValidCloseRFile() throws Exception {
-        // Additional test: verifying successful closure and removal from FileTable
-        String filePath = "valid_file.txt";
-        BufferedReader reader = new BufferedReader(new StringReader("data"));
+    void testValidCloseRFileWithTempDir(@TempDir Path tempDir) throws Exception {
+        // Additional test: verifying successful closure of a real temporary file using @TempDir
+        File tempFile = tempDir.resolve("real_temp_file.txt").toFile();
+        assertTrue(tempFile.createNewFile());
+
+        String filePath = tempFile.getAbsolutePath();
+        BufferedReader reader = new BufferedReader(new java.io.FileReader(tempFile));
         state.getFileTable().put(filePath, reader);
 
         assertTrue(state.getFileTable().isDefined(filePath));

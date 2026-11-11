@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class ControllerTest {
     private static PrgState run(IStmt program) throws MyException {
         PrgState state = new PrgState(new MyStack<>(), new MyDictionary<>(), new MyList<>(),new FileTable(), program);
-        new Controller(new Repository(state), false).allStep();
+        new Controller(new Repository(state,"log4.txt"), false).allStep();
         return state;
     }
 
@@ -49,7 +49,7 @@ class ControllerTest {
         try {
             state.getExeStack().pop();
         } catch (Exception ignored) {}
-        Controller ctr = new Controller(new Repository(state), false);
+        Controller ctr = new Controller(new Repository(state,"log5.txt"), false);
         var ex = assertThrows(StatementException.class, () -> ctr.oneStep(state));
         assertEquals("program state stack is empty", ex.getMessage());
     }

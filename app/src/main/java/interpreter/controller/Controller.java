@@ -1,6 +1,7 @@
 package interpreter.controller;
 
 import interpreter.exceptions.MyException;
+import interpreter.exceptions.RepoException;
 import interpreter.exceptions.StatementException;
 import interpreter.model.PrgState;
 import interpreter.model.stmt.IStmt;
@@ -24,13 +25,18 @@ public class Controller {
         return crtStmt.execute(state);
     }
 
-    public void allStep() throws MyException {
+    public void allStep() throws RepoException,MyException {
         PrgState prg = repo.getCrtPrg();
+        //Initial log
+        repo.logPrgStateExec();
+
         if (displayFlag) {
             System.out.println(prg);
         }
         while (!prg.getExeStack().isEmpty()) {
             oneStep(prg);
+            //log after very step
+            repo.logPrgStateExec();
             if (displayFlag) {
                 System.out.println(prg);
             }

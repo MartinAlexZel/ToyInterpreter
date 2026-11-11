@@ -2,6 +2,7 @@ package interpreter.view;
 
 import interpreter.controller.Controller;
 import interpreter.exceptions.MyException;
+import interpreter.exceptions.RepoException;
 
 public class RunExampleCommand extends Command {
     private final Controller controller;
@@ -12,7 +13,7 @@ public class RunExampleCommand extends Command {
     }
 
     @Override
-    public void execute() {
+    public void execute() throws MyException, RepoException {
         try {
             controller.allStep();
         } catch (MyException e) {

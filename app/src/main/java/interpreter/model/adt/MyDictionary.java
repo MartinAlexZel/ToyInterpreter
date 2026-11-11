@@ -1,38 +1,45 @@
 package interpreter.model.adt;
+
+import interpreter.exceptions.ADTException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MyDictionary<K,V> implements IDictionary<K,V>{
-    private Map<K,V> dictionary;
-    public MyDictionary(){
-        this.dictionary = new HashMap<>();
-    }
+public class MyDictionary<K, V> implements IDictionary<K, V> {
+    private final Map<K, V> dictionary = new HashMap<>();
+
     @Override
-    public void put(K key,V value){
-        dictionary.put(key,value);
-    }
-    @Override
-    public V get(K key){
-        return dictionary.get(key);
-    }
-    @Override
-    public boolean isDefined(K key){
+    public boolean isDefined(K key) {
         return dictionary.containsKey(key);
     }
+
     @Override
-    public void update(K key,V value){
-        dictionary.put(key,value);
+    public V lookup(K key) throws ADTException {
+        if (!isDefined(key)) {
+            throw new ADTException("variable " + key + " is not defined");
+        }
+        return dictionary.get(key);
     }
+
     @Override
-    public void remove(K key){
-        dictionary.remove(key);
+    public void put(K key, V value) {
+        dictionary.put(key, value);
     }
+
     @Override
-    public Map<K,V> getContent(){
+    public void update(K key, V value) throws ADTException {
+        if (!isDefined(key)) {
+            throw new ADTException("variable " + key + " is not defined for update");
+        }
+        dictionary.put(key, value);
+    }
+
+    @Override
+    public Map<K, V> getContent() {
         return dictionary;
     }
+
     @Override
-    public String toString(){
+    public String toString() {
         return dictionary.toString();
     }
 }

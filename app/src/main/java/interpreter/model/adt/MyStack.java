@@ -1,34 +1,39 @@
 package interpreter.model.adt;
-import java.util.Stack;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Collections;
-public class MyStack<T> implements IStack<T>{
-    private Stack<T> stack;
 
-    public MyStack(){
-        this.stack = new Stack<>();
-    }
+import interpreter.exceptions.ADTException;
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Deque;
+import java.util.List;
+
+public class MyStack<T> implements IStack<T> {
+    private final Deque<T> stack = new ArrayDeque<>();
+
     @Override
-    public T pop(){
-        return stack.pop();
-    }
-    @Override
-    public void push(T v){
+    public void push(T v) {
         stack.push(v);
     }
+
     @Override
-    public boolean isEmpty(){
+    public T pop() throws ADTException {
+        if (stack.isEmpty()) {
+            throw new ADTException("pop from an empty stack");
+        }
+        return stack.pop();
+    }
+
+    @Override
+    public boolean isEmpty() {
         return stack.isEmpty();
     }
+
     @Override
-    public List<T> getReversed(){
-        List<T> list = new ArrayList<>(stack);
-        Collections.reverse(list);
-        return list;
+    public List<T> getStackAsList() {
+        return new ArrayList<>(stack);
     }
+
     @Override
-    public String toString(){
+    public String toString() {
         return stack.toString();
     }
 }

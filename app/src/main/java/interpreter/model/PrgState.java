@@ -1,36 +1,43 @@
 package interpreter.model;
-import interpreter.exceptions.MyException;
+
 import interpreter.model.adt.IDictionary;
 import interpreter.model.adt.IList;
 import interpreter.model.adt.IStack;
-import interpreter.model.adt.MyStack;
 import interpreter.model.stmt.IStmt;
 import interpreter.model.value.IValue;
 
 public class PrgState {
     private IStack<IStmt> exeStack;
-    private IDictionary<String,IValue> symTable;
+    private IDictionary<String, IValue> symTable;
     private IList<IValue> out;
-    private IStmt originalProgram;
+    private final IStmt originalProgram;
 
-    public PrgState(IStack<IStmt> exeStack,IDictionary<String,IValue> symTable,IList<IValue> out,IStmt prg){
+    public PrgState(IStack<IStmt> exeStack, IDictionary<String, IValue> symTable, IList<IValue> out, IStmt program) {
         this.exeStack = exeStack;
         this.symTable = symTable;
         this.out = out;
-        this.originalProgram = prg.deepCopy();
-        this.exeStack.push(prg);
+        this.originalProgram = program;
+        this.exeStack.push(program);
     }
-    public IStack<IStmt> getExeStack(){
-        return exeStack;
-    }
-    public IDictionary<String,IValue> getSymTable(){
-        return symTable;
-    }
-    public IList<IValue> getOut(){
-        return out;
-    }
+
+    public IStack<IStmt> getExeStack() { return exeStack; }
+    public void setExeStack(IStack<IStmt> exeStack) { this.exeStack = exeStack; }
+
+    public IDictionary<String, IValue> getSymTable() { return symTable; }
+    public void setSymTable(IDictionary<String, IValue> symTable) { this.symTable = symTable; }
+
+    public IList<IValue> getOut() { return out; }
+    public void setOut(IList<IValue> out) { this.out = out; }
+
+    public IStmt getOriginalProgram() { return originalProgram; }
+
     @Override
-    public String toString(){
-        return "ExeStack:\n" + exeStack.toString() + "\nSymTable:\n" + symTable.toString() + "\nOut:\n" + out.toString() + "\n-----------------\n";
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("---------------------------------------\n");
+        sb.append("ExeStack:\n").append(exeStack).append("\n");
+        sb.append("SymTable:\n").append(symTable).append("\n");
+        sb.append("Out:\n").append(out).append("\n");
+        return sb.toString();
     }
 }

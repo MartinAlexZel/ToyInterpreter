@@ -1,10 +1,12 @@
 package interpreter.model.adt;
+
+import interpreter.exceptions.ADTException;
 import java.util.Map;
-public interface IDictionary<K,V>{
-    void put(K key,V value);
-    V get(K key);
+
+public interface IDictionary<K, V> {
     boolean isDefined(K key);
-    void update(K key,V value);
-    void remove(K key);
-    Map<K,V> getContent();
+    V lookup(K key) throws ADTException;
+    void put(K key, V value);
+    void update(K key, V value) throws ADTException;
+    Map<K, V> getContent();
 }

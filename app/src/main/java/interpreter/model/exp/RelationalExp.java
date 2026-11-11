@@ -1,63 +1,37 @@
 package interpreter.model.exp;
 
+import interpreter.exceptions.ExpressionException;
 import interpreter.exceptions.MyException;
 import interpreter.model.adt.IDictionary;
-import interpreter.model.type.IntType;
 import interpreter.model.value.BoolValue;
 import interpreter.model.value.IValue;
 import interpreter.model.value.IntValue;
 
-public class RelationalExp implements IExp {
-    private final IExp e1;
-    private final IExp e2;
-    private final String op;
-
-    public RelationalExp(String op, IExp e1, IExp e2) {
-        this.op = op;
-        this.e1 = e1;
-        this.e2 = e2;
-    }
-
+public record RelationalExp(RelationalOp op, IExp left, IExp right) implements IExp {
     @Override
-    public IValue eval(IDictionary<String, IValue> tbl) throws MyException {
-        IValue v1 = e1.eval(tbl);
-        if (!v1.getType().equals(new IntType())) {
-            throw new MyException("First operand is not an integer.");
+    public IValue eval(IDictionary<String, IValue> symTable) throws MyException {
+        IValue v1 = left.eval(symTable);
+        if (!(v1 instanceof IntValue(int n1))) {
+            throw new ExpressionException("first operand is not an integer");
         }
 
-        IValue v2 = e2.eval(tbl);
-        if (!v2.getType().equals(new IntType())) {
-            throw new MyException("Second operand is not an integer.");
+        IValue v2 = right.eval(symTable);
+        if (!(v2 instanceof IntValue(int n2))) {
+            throw new ExpressionException("second operand is not an integer");
         }
 
-        int int1 = ((IntValue) v1).getVal();
-        int int2 = ((IntValue) v2).getVal();
-
-        switch (op) {
-            case "<":
-                return new BoolValue(int1 < int2);
-            case "<=":
-                return new BoolValue(int1 <= int2);
-            case "==":
-                return new BoolValue(int1 == int2);
-            case "!=":
-                return new BoolValue(int1 != int2);
-            case ">":
-                return new BoolValue(int1 > int2);
-            case ">=":
-                return new BoolValue(int1 >= int2);
-            default:
-                throw new MyException("Invalid relational operator: " + op);
-        }
-    }
-
-    @Override
-    public IExp deepCopy() {
-        return new RelationalExp(op, e1.deepCopy(), e2.deepCopy());
+        return switch (op) {
+            case LESS -> new BoolValue(n1 < n2);
+            case LESS_EQUAL -> new BoolValue(n1 <= n2);
+            case EQUAL -> new BoolValue(n1 == n2);
+            case NOT_EQUAL -> new BoolValue(n1 != n2);
+            case GREATER -> new BoolValue(n1 > n2);
+            case GREATER_EQUAL -> new BoolValue(n1 >= n2);
+        };
     }
 
     @Override
     public String toString() {
-        return e1.toString() + " " + op + " " + e2.toString();
+        return "(" + left + " " + op + " " + right + ")";
     }
 }
